@@ -14,30 +14,28 @@ Dự án được xây dựng theo chuẩn **Clean Layered Architecture** và tu
 CoffeeShopManagement/
 │
 ├── setup_database.sql                 # Script khởi tạo Database MiniCoffeeShop (8 bảng, SPs, Seed Data)
-├── CoffeeShop.slnx                    # File Solution
+├── CoffeeShop.slnx                    # Solution file (.NET 8/9/10)
 │
-├── CoffeeShop.Api/                    # ASP.NET Core Web API
-│   ├── Controllers/                   # Auth, Categories, Products, Tables, Orders, Users, Reports
-│   ├── Data/                          # AppDbContext, DbInitializer
-│   ├── DTOs/                          # Request/Response/Search DTOs
-│   ├── Entities/                      # 8 Entities: Role, User, Category, Product, CafeTable, Order, OrderDetail, Payment
-│   ├── Middlewares/                   # GlobalExceptionMiddleware
-│   ├── Services/                      # Interfaces & Implementations
-│   ├── appsettings.json
-│   └── Program.cs
+├── src/
+│   ├── CoffeeShop.Domain/             # Entities: Product, Category, Order, OrderDetail, CafeTable, User, Role, Payment
+│   │
+│   ├── CoffeeShop.Application/        # DTOs, Interfaces (IApplicationDbContext, IOrderService,...), Business Services
+│   │
+│   ├── CoffeeShop.Infrastructure/     # AppDbContext (EF Core), DbInitializer (Seed & Stored Procedures)
+│   │
+│   └── CoffeeShop.Api/                # Controllers, Program.cs, Middlewares (GlobalExceptionMiddleware)
 │
-├── CoffeeShop.Tests/                  # XUnit Unit Test Project
-│   ├── TableServiceTests.cs           # Kiểm thử trùng tên bàn, cấm xóa bàn đang Occupied
-│   └── OrderServiceTests.cs           # Kiểm thử cấm 2 đơn mở trên 1 bàn, cấm sửa đơn Paid, tính tổng tiền
+├── tests/
+│   └── CoffeeShop.Tests/              # XUnit Tests: TableServiceTests, OrderServiceTests (7/7 passed)
 │
-└── CoffeeShop.Client/                 # ReactJS Frontend (Vite)
+└── CoffeeShop.Client/                 # React (Vite) + Tailwind CSS v4 + Shadcn UI
     ├── src/
-    │   ├── api/                       # axiosClient, authApi, orderApi, productApi, tableApi, reportApi, ...
-    │   ├── components/                # Navbar, Sidebar, Pagination (10/50/100), Modal, ProtectedRoute
+    │   ├── api/                       # axiosClient, authApi, orderApi, productApi, tableApi, reportApi, userApi, categoryApi
+    │   ├── components/                # Navbar, Sidebar (Menu & Quản trị), Modal, Pagination, UI components
     │   ├── contexts/                  # AuthContext
-    │   ├── pages/                     # Login, POS/Sơ đồ bàn, OrderDetail, OrderHistory, Product, Category, User, Dashboard
+    │   ├── pages/                     # POS, OrderDetail, OrderHistory, Products, Categories, Tables, Users, Dashboard, Login
     │   ├── App.jsx
-    │   └── App.css
+    │   └── index.css
     └── package.json
 ```
 
